@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VANSH — Data & Insights</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root{
+      --green:#1fbf8f;
+      --dark:#0b0f0d;
+      --light:#f4fff9;
+      --gold:#e6c46a;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif}
+    body{background:var(--light);color:#111;overflow-x:hidden}
+
+    /* NAV */
+    nav{position:fixed;top:0;width:100%;padding:1.1rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.75);backdrop-filter:blur(14px);z-index:1000}
+    nav img{height:40px}
+    nav ul{list-style:none;display:flex;gap:2.2rem;font-weight:600;letter-spacing:1px}
+    nav ul li a{text-decoration:none;color:#111;opacity:.85}
+    nav ul li a:hover{color:var(--green)}
+
+    /* HERO */
+    .hero{min-height:70vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 10%}
+    .hero h1{font-size:3.4rem;font-weight:900;letter-spacing:4px;margin-bottom:1rem}
+    .hero p{max-width:800px;font-size:1.1rem;line-height:1.8;opacity:.9}
+
+    /* SECTIONS */
+    section{padding:7rem 12%}
+    h2{font-size:2.6rem;letter-spacing:2px;margin-bottom:2rem}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:3rem;align-items:center}
+
+    .card{background:white;padding:2.8rem;border-radius:20px;box-shadow:0 25px 50px rgba(0,0,0,.1);transform:translateY(60px);opacity:0;transition:.9s ease}
+    .card.visible{transform:translateY(0);opacity:1}
+
+    .insight{border-left:6px solid var(--green);padding-left:1.5rem;font-weight:600}
+
+    footer{background:var(--dark);color:white;padding:4rem 12%;text-align:center;opacity:.9}
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 35px 70px rgba(0,0,0,.15)
+    @media(max-width:900px){
+      .hero h1{font-size:2.4rem}
+      nav ul{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <img src="assets/logo.png" alt="Vansh Logo">
+  <ul>
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="problem.html">PROBLEM</a></li>
+    <li><a href="solution.html">SOLUTION</a></li>
+    <li><a href="impact.html">IMPACT</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div>
+    <h1>DATA & INSIGHTS</h1>
+    <p>This page presents the evidence behind the issue; combining global statistics, government data, and local community surveys to understand how e‑waste is currently managed.</p>
+  </div>
+</div>
+
+<section>
+  <h2>Global E‑Waste Management</h2>
+  <div class="grid">
+    <div class="card">
+      <canvas id="globalChart"></canvas>
+    </div>
+    <div class="card">
+      <p class="insight">Globally, less than a quarter of electronic waste is formally recycled. The majority is dumped, stored, or processed by the informal sector, causing environmental and health hazards.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Community Survey - Bangalore</h2>
+  <div class="grid">
+    <div class="card">
+      <canvas id="surveyChart"></canvas>
+    </div>
+    <div class="card">
+      <p class="insight">Most respondents indicated that unused electronic devices are stored at home, not discarded. This reveals a major opportunity for reuse and organised recycling.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>What This Data Tells Us</h2>
+  <div class="grid">
+    <div class="card">People are willing to recycle, but systems are inconvenient or unclear.</div>
+    <div class="card">E‑waste is not destroyed, it accumulates slowly.</div>
+    <div class="card">With proper collection networks, recovery rates can increase dramatically.</div>
+  </div>
+</section>
+
+<footer>
+  <p>VANSH - Sustainability Project | Data & Insights</p>
+</footer>
+
+<script>
+  // Reveal animation
+  const cards=document.querySelectorAll('.card');
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
+  },{threshold:.15});
+  cards.forEach(c=>observer.observe(c));
+
+  // Global e-waste chart
+  new Chart(document.getElementById('globalChart'),{
+    type:'doughnut',
+    data:{
+      labels:['Formally Recycled','Unmanaged / Informal'],
+      datasets:[{data:[22,78],backgroundColor:['#1fbf8f','#0b0f0d']}]
+    },
+    options:{plugins:{legend:{position:'bottom'}}}
+  });
+
+  // Survey chart
+  new Chart(document.getElementById('surveyChart'),{
+    type:'bar',
+    data:{
+      labels:['Stored at Home','Disposed','Repaired','Given Away'],
+      datasets:[{data:[75,12,8,5],backgroundColor:'#1fbf8f'}]
+    },
+    options:{scales:{y:{beginAtZero:true}},plugins:{legend:{display:false}}}
+  });
+</script>
+
+</body>
+</html>

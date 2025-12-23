@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VANSH — Impact & Future</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --green:#1fbf8f;
+      --dark:#0b0f0d;
+      --light:#f4fff9;
+      --gold:#e6c46a;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif}
+    body{background:var(--light);color:#111;overflow-x:hidden}
+
+    /* NAV */
+    nav{position:fixed;top:0;width:100%;padding:1.1rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.75);backdrop-filter:blur(14px);z-index:1000}
+    nav img{height:40px}
+    nav ul{list-style:none;display:flex;gap:2.2rem;font-weight:600;letter-spacing:1px}
+    nav ul li a{text-decoration:none;color:#111;opacity:.85}
+    nav ul li a:hover{color:var(--green)}
+
+    /* HERO */
+    .hero{min-height:75vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 10%;position:relative}
+    .hero::before{
+      content:"";position:absolute;inset:0;
+      background:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      filter:brightness(.6);
+    }
+    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.7))}
+    .hero-content{position:relative;z-index:2;max-width:900px;color:white}
+    .hero h1{font-size:3.2rem;font-weight:900;letter-spacing:4px;margin-bottom:1rem}
+    .hero p{font-size:1.15rem;line-height:1.9;opacity:.95}
+
+    /* SECTIONS */
+    section{padding:7.5rem 12%}
+    h2{font-size:2.5rem;letter-spacing:2px;margin-bottom:2rem}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:3rem}
+
+    .card{background:white;padding:3rem;border-radius:22px;box-shadow:0 30px 60px rgba(0,0,0,.12);transform:translateY(60px);opacity:0;transition:.9s ease}
+    .card.visible{transform:translateY(0);opacity:1}
+
+    .highlight{border-left:6px solid var(--green);padding-left:1.5rem;font-weight:600}
+
+    footer{background:var(--dark);color:white;padding:4rem 12%;text-align:center;opacity:.9}
+    /* subtle hover (reflective, not flashy) */
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 35px 70px rgba(0,0,0,.15)
+
+    @media(max-width:900px){
+      .hero h1{font-size:2.3rem}
+      nav ul{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <img src="assets/logo.png" alt="Vansh Logo">
+  <ul>
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="problem.html">PROBLEM</a></li>
+    <li><a href="data.html">DATA</a></li>
+    <li><a href="solution.html">SOLUTION</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-content">
+    <h1>IMPACT & FUTURE</h1>
+    <p>This project obviously does not end with awareness. It demonstrates how structured action, collaboration and accountability can convert e-waste from a liability into an opportunity.</p>
+  </div>
+</div>
+
+<section>
+  <h2>Expected Impact</h2>
+  <div class="grid">
+    <div class="card">Reduction in unsafe informal recycling and landfill dumping.</div>
+    <div class="card">Improved recovery of valuable materials like copper and precious metals.</div>
+    <div class="card">Greater public awareness and responsible disposal behaviour.</div>
+    <div class="card">Alignment with national sustainability and circular economy goals.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Limitations</h2>
+  <div class="grid">
+    <div class="card">The success of this model depends on consistent public participation.</div>
+    <div class="card">Enforcement of e-waste regulations remains a challenge.</div>
+    <div class="card">Logistics and funding are required to sustain large scale operations.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Future Scope</h2>
+  <div class="grid">
+    <div class="card">Integration of digital tracking systems for collected e-waste.</div>
+    <div class="card">Expansion to other urban centres facing similar challenges.</div>
+    <div class="card">Student led awareness programs and institutional partnerships.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Final Reflection</h2>
+  <div class="card highlight">
+    This project demonstrates that sustainability challenges require interdisciplinary thinking. E-waste management is not only a technological issue, but also a social, economic and governance challenge. Through this inquiry, the importance of systems thinking, collaboration and long term accountability became clear.
+-Subby, Akshita, Vansh, Rashmi, Abhav.
+  </div>
+</section>
+
+<footer>
+  <p>VANSH - Sustainability Project | Impact & Future</p>
+</footer>
+
+<script>
+  const cards=document.querySelectorAll('.card');
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
+  },{threshold:.15});
+  cards.forEach(c=>observer.observe(c));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VANSH — Weaving Wires to Gold</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --green: #1fbf8f;
+      --dark: #0b0f0d;
+      --light: #f4fff9;
+      --gold: #e6c46a;
+      --nav-height: 84px; /* height of the fixed nav */
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Montserrat',sans-serif;
+    }
+
+    body{
+      background:var(--dark);
+      color:white;
+      overflow-x:hidden;
+      transition: opacity 0.3s ease;
+    }
+
+    /* NAV */
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:var(--nav-height);
+      padding:1.05rem 3rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:rgba(0,0,0,.35);
+      backdrop-filter:blur(14px);
+      z-index:10000; 
+    }
+
+    nav img{height:42px; display:block;}
+
+    nav ul{
+      list-style:none;
+      display:flex;
+      gap:2.5rem;
+      font-weight:600;
+      letter-spacing:1px;
+    }
+
+    nav ul li a{
+      text-decoration:none;
+      color:white;
+    }
+
+    nav ul li a:hover{
+      color:var(--green);
+    }
+
+    /* HERO */
+    /* hero starts below the nav and its height accounts for the nav */
+    .hero{
+      height:calc(100vh - var(--nav-height));
+      margin-top:var(--nav-height);
+      position:relative;
+      /*important: allow content to overflow so ppl can scroll on small screens */
+      overflow:visible;
+      isolation:isolate; /* ensure stacking context for children */
+    }
+
+    .slides,.slide{
+      position:absolute;
+      inset:0;
+    }
+
+    .slide{
+      background-size:cover;
+      background-position:center;
+      opacity:0;
+      animation:slideshow 24s infinite;
+    }
+
+    .slide:nth-child(1){
+      background-image:url('https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1600&q=80');
+      animation-delay:0s;
+    }
+
+    .slide:nth-child(2){
+      background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80');
+      animation-delay:8s;
+    }
+
+    .slide:nth-child(3){
+      background-image:url('https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1600&q=80');
+      animation-delay:16s;
+    }
+
+    @keyframes slideshow{
+      0%{opacity:0}
+      10%{opacity:1}
+      30%{opacity:1}
+      40%{opacity:0}
+      100%{opacity:0}
+    }
+
+    /* overlay sits above slides but below content lol pointer-events:none so it doesn't block clicks */
+    .slides { z-index: 0; }
+    .overlay{
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle,rgba(0,0,0,.4),rgba(0,0,0,.85));
+      z-index:1;
+      pointer-events:none;
+    }
+
+    /* hero content must be above everything */
+    .hero-content{
+      position:relative;
+      z-index:2;
+      min-height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:2.4rem 10%;
+      gap:1.2rem;
+    }
+
+    .hero-content img{
+      width:300px;
+      margin-bottom:0.6rem;
+      animation:fadeUp 1.5s ease forwards;
+    }
+
+    .hero-content h1{
+      font-size:3.6rem;
+      font-weight:900;
+      letter-spacing:6px;
+      margin:0.4rem 0 0.6rem;
+      line-height:1.0;
+    }
+
+    .hero-content p{
+      max-width:840px;
+      font-size:1.15rem;
+      line-height:1.8;
+      opacity:.92;
+    }
+.hero-content {
+  padding-top: 1rem;          /* pulls content up */
+  transform: translateY(-30px); /* raises text block slightly */
+}
+    /* CTA styling (keeps your look but ensures contrast) */
+    .cta{
+      margin-top:2rem;
+      padding:1rem 2.2rem;
+      border:2px solid var(--green);
+      background:transparent;
+      color:white;
+      text-decoration:none;
+      font-weight:700;
+      letter-spacing:1px;
+      text-align:center;
+      transition:0.28s ease;
+      display:inline-block;
+      cursor:pointer;
+      border-radius:999px;
+    }
+
+    .cta span{color:var(--gold); font-weight:900;}
+
+    .cta:hover{
+      background:var(--green);
+      color:black;
+      transform:translateY(-4px);
+      box-shadow:0 18px 40px rgba(31,191,143,0.18);
+    }
+
+    .cta small{
+      display:block;
+      font-size:0.8rem;
+      opacity:0.85;
+      margin-top:0.2rem;
+      font-weight:600;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(40px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    @media(max-width:900px){
+      .hero-content h1{font-size:2.6rem}
+      nav ul{display:none}
+      .hero-content img{width:200px}
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <img src="assets/logo.png" alt="Vansh Logo">
+  <ul>
+    <li><a href="problem.html">PROBLEM</a></li>
+    <li><a href="data.html">DATA</a></li>
+    <li><a href="solution.html">SOLUTION</a></li>
+    <li><a href="impact.html">IMPACT</a></li>
+  </ul>
+</nav>
+
+<section class="hero" aria-label="Hero">
+  <div class="slides" aria-hidden="true">
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+  </div>
+
+  <div class="overlay" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <!-- central logo in the hero (you already had it) -->
+    <img src="assets/logo.png" alt="Vansh Logo">
+    <h1>WEAVING WIRES TO GOLD</h1>
+    <p>
+      A cinematic sustainability project exploring how electronic waste can be transformed
+      into a valuable resource through collaboration, awareness, and responsible recycling.
+    </p>
+
+    <a href="problem.html" class="cta" id="hero-cta">
+      E-WASTE IS A SMALL PROBLEM, ISN'T IT? <span>WRONG.</span><br>
+      <small>Click to find out why ↓</small>
+    </a>
+  </div>
+</section>
+
+<script>
+  // simple, single listener ->>fade out then navigate.
+  (function () {
+    const cta = document.getElementById('hero-cta');
+    if (!cta) return;
+
+    cta.addEventListener('click', function (e) {
+      // allow the animation to play
+      e.preventDefault();
+      // gentle fade
+      document.body.style.transition = 'opacity 320ms ease';
+      document.body.style.opacity = '0';
+      setTimeout(() => {
+        window.location.href = this.href;
+      }, 320);
+    }, { once: true });
+  })();
+</script>
+
+</body>
+</html>

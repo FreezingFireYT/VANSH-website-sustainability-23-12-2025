@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VANSH — The Problem</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --green:#1fbf8f;
+      --dark:#0b0f0d;
+      --light:#f4fff9;
+      --gold:#e6c46a;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif}
+    body{background:var(--dark);color:white;overflow-x:hidden}
+
+    /* NAV */
+    nav{position:fixed;top:0;width:100%;padding:1.1rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.4);backdrop-filter:blur(14px);z-index:1000}
+    nav img{height:40px}
+    nav ul{list-style:none;display:flex;gap:2.2rem;font-weight:600;letter-spacing:1px}
+    nav ul li a{text-decoration:none;color:white;opacity:.9}
+    nav ul li a:hover{color:var(--green)}
+
+    /* HERO */
+    .hero{height:90vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+    .hero::before{
+      content:"";position:absolute;inset:0;
+      background:url('https://images.unsplash.com/photo-1527430253228-e93688616381?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      transform:scale(1.05);
+    }
+    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.9))}
+    .hero-content{position:relative;z-index:2;max-width:900px;padding:0 10%}
+    .hero h1{font-size:3.6rem;font-weight:900;letter-spacing:5px;margin-bottom:1rem}
+    .hero p{font-size:1.15rem;line-height:1.9;opacity:.9}
+
+    /* SECTIONS */
+    section{padding:8rem 12%}
+    section.light{background:var(--light);color:#111}
+    section.dark{background:var(--dark);color:white}
+    h2{font-size:2.8rem;letter-spacing:2px;margin-bottom:2rem}
+
+    /* PARALLAX */
+    .parallax{position:relative;min-height:70vh;display:flex;align-items:center}
+    .parallax::before{
+      content:"";position:absolute;inset:0;
+      background-position:center;background-size:cover;background-attachment:fixed;
+      filter:brightness(.45);
+    }
+    .parallax-content{position:relative;z-index:2;max-width:700px}
+
+    /* GRID or PANELS */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2.5rem}
+    .panel{background:white;color:#111;padding:2.6rem;border-radius:18px;box-shadow:0 30px 60px rgba(0,0,0,.12);transform:translateY(60px);opacity:0;transition:.9s ease}
+    .panel.visible{transform:translateY(0);opacity:1}
+
+    .stat{background:linear-gradient(135deg,#1fbf8f,#2fe5b2);color:white;text-align:center;padding:3rem 2rem;border-radius:22px;font-weight:600}
+    .stat span{display:block;font-size:3rem;font-weight:900;margin-bottom:.5rem}
+
+    footer{background:black;padding:4rem 12%;text-align:center;opacity:.85}
+
+    @media(max-width:900px){
+      .hero h1{font-size:2.4rem}
+      nav ul{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <img src="assets/logo.png" alt="Vansh Logo">
+  <ul>
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="data.html">DATA</a></li>
+    <li><a href="solution.html">SOLUTION</a></li>
+    <li><a href="impact.html">IMPACT</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-content">
+    <h1>THE PROBLEM</h1>
+    <p>Bangalore’s rapid technological growth has created a silent crisis. Devices are replaced quicker than they are managed, leaving behind a growing trail of electronic waste.</p>
+  </div>
+</div>
+
+<section class="dark">
+  <h2>WHY E‑WASTE IS DIFFERENT</h2>
+  <div class="grid">
+    <div class="panel">Electronic waste is not ordinary garbage. It contains toxic substances that harm soil, water, and human health when handled improperly.</div>
+    <div class="panel">At the same time, these devices contain valuable materials- copper, gold, and rare metals that are lost when discarded.</div>
+  </div>
+</section>
+
+<section class="parallax" style="--img:url('https://images.unsplash.com/photo-1593642634367-d91a135587b5?auto=format&fit=crop&w=1600&q=80')">
+  <style>.parallax::before{background-image:var(--img)}</style>
+  <div class="parallax-content">
+    <h2>THE SCALE OF THE ISSUE</h2>
+    <p>Bangalore alone produces enormous quantities of e-waste every year due to its role as India’s IT hub.</p>
+  </div>
+</section>
+
+<section class="light">
+  <div class="grid">
+    <div class="stat"><span>92,000+</span>TONNES PER YEAR</div>
+    <div class="stat"><span>&lt;22%</span>FORMALLY RECYCLED</div>
+    <div class="panel">Most discarded electronics are either stored in homes or processed by the informal sector using unsafe methods.</div>
+  </div>
+</section>
+
+<section class="dark">
+  <h2>WHY CURRENT SYSTEMS FAIL</h2>
+  <div class="grid">
+    <div class="panel">Government regulations exist, but enforcement remains inconsistent.</div>
+    <div class="panel">Many citizens are unaware of safe disposal methods.</div>
+    <div class="panel">Informal recycling continues due to lack of accessible alternatives.</div>
+  </div>
+</section>
+
+<footer>
+  <p>VANSH - Sustainability Project | The Problem</p>
+</footer>
+
+<script>
+  const panels=document.querySelectorAll('.panel');
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
+  },{threshold:.15});
+  panels.forEach(p=>observer.observe(p));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VANSH — The Solution</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --green:#1fbf8f;
+  --dark:#0b0f0d;
+  --light:#f4fff9;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif}
+body{background:var(--light);color:#111;overflow-x:hidden}
+
+/* NAV */
+nav{
+  position:fixed;top:0;width:100%;
+  padding:1.1rem 3rem;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(255,255,255,.8);
+  backdrop-filter:blur(12px);
+  z-index:1000;
+}
+nav img{height:40px}
+nav ul{list-style:none;display:flex;gap:2rem;font-weight:600}
+nav a{text-decoration:none;color:#111}
+nav a:hover{color:var(--green)}
+
+/* HERO */
+.hero{
+  min-height:85vh;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:0 12%;
+  position:relative;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:url("https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?auto=format&fit=crop&w=1600&q=80") center/cover;
+  filter:brightness(.55);
+}
+.hero::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.75));
+}
+.hero-content{position:relative;z-index:2;color:white;max-width:900px}
+.hero h1{font-size:3.4rem;font-weight:800;letter-spacing:4px}
+.hero p{margin-top:1.2rem;font-size:1.15rem;line-height:1.9}
+
+/* SECTIONS */
+section{padding:7rem 12%}
+h2{font-size:2.4rem;margin-bottom:2.5rem;letter-spacing:1.5px}
+
+/* FLOW */
+.flow{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:3rem;
+}
+.step{
+  background:white;
+  padding:3rem;
+  border-radius:22px;
+  box-shadow:0 30px 60px rgba(0,0,0,.12);
+  position:relative;
+  opacity:0;
+  transform:translateY(60px);
+  transition:.9s ease;
+}
+.step.visible{opacity:1;transform:translateY(0)}
+.step::before{
+  content:"";
+  position:absolute;
+  top:-14px;left:30px;
+  width:40px;height:40px;
+  border-radius:50%;
+  background:var(--green)
+}
+
+/* CARDS */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:2.5rem;
+}
+.card{
+  background:white;
+  padding:3rem;
+  border-radius:22px;
+  box-shadow:0 25px 50px rgba(0,0,0,.12);
+  opacity:0;
+  transform:translateY(50px);
+  transition:.8s ease;
+}
+.card.visible{opacity:1;transform:translateY(0)}
+
+/* PARTNERS */
+.partners{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:2.5rem;
+}
+.partner{
+  background:linear-gradient(135deg,#1fbf8f,#2fe5b2);
+  color:white;
+  padding:2.5rem;
+  border-radius:22px;
+  font-weight:600;
+  text-align:center;
+}
+.partner small{display:block;font-weight:400;opacity:.9;margin-top:.4rem}
+
+/* REASONS */
+.reasons{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:2.5rem;
+}
+.reason{
+  background:white;
+  padding:2.5rem;
+  border-radius:22px;
+  box-shadow:0 25px 50px rgba(0,0,0,.1)
+}
+
+/* LOOP */
+.loop{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:2.5rem;
+}
+.loop-box{
+  background:white;
+  padding:2.5rem;
+  border-radius:22px;
+  border-left:6px solid var(--green);
+  box-shadow:0 20px 40px rgba(0,0,0,.1)
+}
+.card,
+.reason,
+.loop-box,
+.partner{
+  transition:.35s ease;
+}
+
+.card:hover,
+.reason:hover,
+.loop-box:hover{
+  transform:translateY(-8px) scale(1.01);
+  box-shadow:0 35px 70px rgba(0,0,0,.18);
+}
+
+.partner:hover{
+  transform:translateY(-8px) scale(1.03);
+  box-shadow:0 30px 60px rgba(0,0,0,.25);
+}
+
+/* FOOTER */
+footer{
+  background:var(--dark);
+  color:white;
+  padding:4rem 12%;
+  text-align:center;
+  opacity:.9;
+}
+.recycle-process{
+  position:relative;
+  max-width:1000px;
+  margin:auto;
+}
+
+.process-step{
+  position:relative;
+  padding:2.8rem 3.5rem;
+  margin-bottom:4rem;
+  background:rgba(255,255,255,.7);
+  backdrop-filter:blur(6px);
+  border-radius:26px;
+  box-shadow:0 30px 60px rgba(0,0,0,.12);
+  transition:.5s ease;
+}
+
+.process-step:hover{
+  transform:translateY(-6px);
+  box-shadow:0 40px 80px rgba(31,191,143,.25);
+}
+
+/* Zig-zag layout */
+.process-step:nth-child(even){
+  margin-left:auto;
+}
+
+/* Vertical glowing line */
+.process-step::before{
+  content:"";
+  position:absolute;
+  left:-18px;
+  top:0;
+  width:6px;
+  height:100%;
+  background:linear-gradient(
+    to bottom,
+    var(--green),
+    rgba(31,191,143,.3),
+    transparent
+  );
+  border-radius:6px;
+  box-shadow:0 0 20px rgba(31,191,143,.6);
+}
+
+/* Step number */
+.process-step::after{
+  content:counter(step);
+  counter-increment:step;
+  position:absolute;
+  left:-48px;
+  top:24px;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:var(--green);
+  color:white;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Counter init */
+.recycle-process{
+  counter-reset:step;
+}
+
+.process-step h3{
+  font-size:1.55rem;
+  margin-bottom:.7rem;
+}
+
+.process-step p{
+  font-size:1.02rem;
+  line-height:1.9;
+  opacity:.9;
+}
+.recycle-diagram{
+  margin:4rem auto 5rem;
+  max-width:900px;
+}
+
+.recycle-diagram svg{
+  width:100%;
+  height:auto;
+}
+
+/* Nodes */
+.recycle-diagram .node circle{
+  fill:white;
+  stroke:var(--green);
+  stroke-width:4;
+  transition:.4s ease;
+}
+
+.recycle-diagram .node text{
+  font-size:12px;
+  font-weight:700;
+  text-anchor:middle;
+  fill:#111;
+  pointer-events:none;
+}
+
+/* Hover effect */
+.recycle-diagram .node:hover circle{
+  fill:var(--green);
+}
+
+.recycle-diagram .node:hover text{
+  fill:white;
+}
+
+/* Flow animation */
+.recycle-diagram path{
+  stroke-dasharray:8;
+  animation:flow 6s linear infinite;
+}
+
+@keyframes flow{
+  from{stroke-dashoffset:0}
+  to{stroke-dashoffset:-120}
+}
+.recycle-diagram .node text{
+  font-size:12px;
+  letter-spacing:.8px;
+}
+
+@media(max-width:900px){
+  nav ul{display:none}
+  .hero h1{font-size:2.4rem}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <img src="assets/logo.png">
+  <ul>
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="problem.html">PROBLEM</a></li>
+    <li><a href="data.html">DATA</a></li>
+    <li><a href="impact.html">IMPACT</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-content">
+    <h1>THE SOLUTION</h1>
+    <p>
+      The challenge is not the absence of recycling systems but the lack of accessibility, awareness, incentive, and coordination.
+      VANSH exists to bridge these gaps.
+    </p>
+  </div>
+</div>
+
+<!-- HOW SYSTEM WORKS -->
+<section>
+  <h2>How the System Works</h2>
+  <div class="flow">
+    <div class="step"><h3>1. Collection</h3><p>E-waste is collected from households, industries, schools, and community drives.</p></div>
+    <div class="step"><h3>2. Segregation</h3><p>Devices are dismantled into reusable, recyclable, and hazardous components.</p></div>
+    <div class="step"><h3>3. Processing</h3><p>Certified recyclers safely extract valuable materials.</p></div>
+    <div class="step"><h3>4. Recovery</h3><p>Recovered materials reenter production, reducing dependence on mining.</p></div>
+  </div>
+</section>
+
+<!-- WHAT VANSH DOES -->
+<section>
+  <h2>What Vansh Does</h2>
+  <div class="grid">
+    <div class="card"><h3>Collection & Logistics</h3><p>Vansh provides doorstep pickup and formal routing of e-waste.</p></div>
+    <div class="card"><h3>Coordination Layer</h3><p>We connect people, industries, and certified recyclers.</p></div>
+    <div class="card"><h3>Trust & Transparency</h3><p>Clear valuation, material tracking and payout logic.</p></div>
+  </div>
+</section>
+
+<!-- HOW VALUE IS CREATED -->
+<section>
+  <h2>How Value Is Created</h2>
+  <div class="grid">
+    <div class="card"><h3>10% Value Return</h3><p>People earn from materials once considered useless.</p></div>
+    <div class="card"><h3>Behaviour Change</h3><p>Incentives convert storage and dumping into participation.</p></div>
+    <div class="card"><h3>Sustainable Revenue</h3><p>We earn through facilitation and resale margins.</p></div>
+  </div>
+</section>
+
+<!-- WHO WE PARTNER WITH -->
+<section>
+  <h2>Who We Partner With</h2>
+
+  <h3 style="margin-bottom:1.5rem;">Certified E-Waste Recyclers</h3>
+  <div class="partners">
+    <div class="partner">RecycleKaro<small>Formal e-waste recycling</small></div>
+    <div class="partner">Namo eWaste Management<small>Authorised processor</small></div>
+    <div class="partner">Eco-Tech Recycling<small>Material recovery</small></div>
+    <div class="partner">Green India E-Waste<small>Certified dismantling</small></div>
+  </div>
+
+  <h3 style="margin:3rem 0 1.5rem;">Environmental NGOs</h3>
+  <div class="partners">
+    <div class="partner">Karo Sambhav<small>Circular economy advocacy</small></div>
+    <div class="partner">Chintan<small>Community waste engagement</small></div>
+    <div class="partner">Earth5R<small>Citizen sustainability</small></div>
+    <div class="partner">SERI<small>Global e-waste standards</small></div>
+  </div>
+</section>
+
+<section>
+  <h2>Inside an E-Waste Recycling Facility</h2>
+
+  <div class="recycle-process">
+
+    <div class="process-step">
+      <div class="process-line"></div>
+      <h3>Manual Dismantling</h3>
+      <p>
+        Collected devices are manually dismantled to separate batteries,
+        circuit boards, cables, screens and plastic casings.
+        This step prevents damage to valuable components and isolates
+        hazardous materials at an early stage.
+      </p>
+    </div>
+
+    <div class="process-step">
+      <div class="process-line"></div>
+      <h3>Mechanical Size Reduction</h3>
+      <p>
+        Remaining components are shredded into smaller fragments.
+        This increases surface area and prepares materials for
+        efficient physical separation.
+      </p>
+    </div>
+
+    <div class="process-step">
+      <div class="process-line"></div>
+      <h3>Magnetic & Eddy Current Separation</h3>
+      <p>
+        Ferrous metals are removed using magnetic separation,
+        while non ferrous metals such as aluminium and copper
+        are extracted using eddy current technology.
+      </p>
+    </div>
+
+    <div class="process-step">
+      <div class="process-line"></div>
+      <h3>Material-Specific Extraction</h3>
+      <p>
+        Printed circuit boards undergo advanced recovery processes
+        such as hydrometallurgy or controlled pyrometallurgy
+        to extract precious metals including gold, silver and palladium.
+      </p>
+    </div>
+
+    <div class="process-step">
+      <div class="process-line"></div>
+      <h3>Plastic & Glass Recovery</h3>
+      <p>
+        Plastics are sorted by polymer type and recycled into granules,
+        while glass from screens is treated separately to remove
+        lead and other contaminants.
+      </p>
+    </div>
+
+    <div class="process-step">
+      <div class="process-line"></div>
+      <h3>Hazardous Waste Treatment</h3>
+      <p>
+        Toxic residues such as heavy metals and chemical by products
+        are stabilised and dealt with based on environmental
+        and safety regulations.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ACCELERATE IMPACT -->
+<section>
+  <h2>How We Accelerate Impact</h2>
+  <div class="grid">
+    <div class="card"><h3>Community Drives</h3><p>Converts stored electronics into recycled resources.</p></div>
+    <div class="card"><h3>School Engagement</h3><p>Students multiply awareness.</p></div>
+    <div class="card"><h3>Information Hub</h3><p>Clear guidance on what, where and how to recycle.</p></div>
+    <div class="card"><h3>Data Feedback</h3><p>Insights improve outreach, routing and efficiency.</p></div>
+  </div>
+</section>
+
+<!-- WHY THIS WORKS (fixed ig) -->
+<section>
+  <h2>Why This Works</h2>
+  <div class="reasons">
+    <div class="reason">Doorstep collection and clear guidance remove participation friction.</div>
+    <div class="reason">Economic incentives directly influence responsible disposal behaviour.</div>
+    <div class="reason">Existing recyclers and NGOs enable scaling without duplication.</div>
+    <div class="reason">Community programs and schools amplify awareness.</div>
+  </div>
+</section>
+
+<!-- CLOSING THE LOOP (fixed yes) -->
+<section>
+  <h2>Closing the Circular Loop</h2>
+  <div class="loop">
+    <div class="loop-box">Electronics are collected before entering unsafe informal channels.</div>
+    <div class="loop-box">Materials are recovered and refined through certified processes.</div>
+    <div class="loop-box">Recovered resources return to industries, design and education.</div>
+    <div class="loop-box">Reduced extraction completes a sustainable circular economy.</div>
+  </div>
+<div class="recycle-diagram">
+  <svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Arrow Marker -->
+    <defs>
+      <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3"
+              orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L0,6 L9,3 z" fill="#1fbf8f"/>
+      </marker>
+    </defs>
+
+    <!-- Circular Flow -->
+    <path d="M150 210 C 260 90, 540 90, 650 210"
+          fill="none" stroke="#1fbf8f" stroke-width="4"
+          marker-end="url(#arrow)" />
+
+    <path d="M650 210 C 540 330, 260 330, 150 210"
+          fill="none" stroke="#1fbf8f" stroke-width="4"
+          marker-end="url(#arrow)" />
+
+    <!-- Nodes -->
+    <g class="node">
+      <circle cx="150" cy="210" r="42"/>
+      <text x="150" y="215">E-Waste</text>
+    </g>
+
+    <g class="node">
+      <circle cx="320" cy="110" r="42"/>
+      <text x="320" y="115">Collect</text>
+    </g>
+
+    <g class="node">
+      <circle cx="520" cy="110" r="42"/>
+      <text x="520" y="115">Segregate</text>
+    </g>
+
+    <g class="node">
+      <circle cx="650" cy="210" r="42"/>
+      <text x="650" y="215">Recover</text>
+    </g>
+
+    <g class="node">
+      <circle cx="520" cy="310" r="42"/>
+      <text x="520" y="315">Remake</text>
+    </g>
+
+    <g class="node">
+      <circle cx="320" cy="310" r="42"/>
+      <text x="320" y="315">Utilise</text>
+    </g>
+
+  </svg>
+</div>
+
+</section>
+
+<footer>
+  <p>VANSH - Sustainability Project | The Solution</p>
+</footer>
+
+<script>
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
+},{threshold:.2});
+document.querySelectorAll('.card,.step').forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
